@@ -1,11 +1,12 @@
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, Request
+from fastapi import Depends, FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from crud import get_all, delete_article
+
+from crud import delete_article, get_all
 
 app = FastAPI()
 
@@ -15,13 +16,15 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
-# TODO: Delete is not working
 # TODO: EDIT not implemented
+
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     articles = get_all()
-    return templates.TemplateResponse("index.html", {"request": request, "articles": articles})
+    return templates.TemplateResponse(
+        "index.html", {"request": request, "articles": articles}
+    )
 
 
 @app.get("/profile", response_class=HTMLResponse)
@@ -46,11 +49,15 @@ async def admin_page(
 ):
     return templates.TemplateResponse("admin.html", {"request": request})
 
-@app.post("/edit/{article_id}")
-def delete_article_endpoint(article_id: str, credentials: Annotated[HTTPBasicCredentials, Depends(security)]):
+
+@app.get("/delete/{article_id}")
+def delete_article_endpoint(
+    credentials: Annotated[HTTPBasicCredentials, Depends(security)], article_id: str
+):
     delete_article(article_id)
     if credentials.username.lower() == "admin":
         return RedirectResponse(url="/admin")
     return RedirectResponse(url="/profile")
+
 
 # TODO: LOGOUT

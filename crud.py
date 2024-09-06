@@ -1,7 +1,8 @@
 import json
 import os
-from pprint import pprint
 from uuid import uuid4
+
+from dummy_data import dummy_data
 
 
 def read_files():

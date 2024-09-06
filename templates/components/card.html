@@ -23,16 +23,14 @@
                         class="icon" />Edit
                 </button>
             </a>
-            <form action="/edit/{{article['id']}}" method="post">
-                <a href="">
-                    <button class="delete-button icon-btn">
-                        <img
-                            src="{{url_for('static', path='images/icons/trash.svg')}}"
-                            alt="trash-icon"
-                            class="icon" />Delete
-                    </button>
-                </a>
-            </form>
+            <a href="/delete/{{article['id']}}">
+                <button type="submit" class="delete-button icon-btn">
+                    <img
+                        src="{{url_for('static', path='images/icons/trash.svg')}}"
+                        alt="trash-icon"
+                        class="icon" />Delete
+                </button>
+            </a>
         </div>
     </div>
 </div>
