@@ -1,0 +1,39 @@
+{% for article in articles %}
+<div class="card">
+    <div class="card-heading">
+        <div class="card-subheading">
+            <h2>{{ article["title"] }}</h2>
+            <small>{{ article["author"]}}</small>
+        </div>
+        <small>{{ article["date"] }}</small>
+    </div>
+    <div class="card-body">
+        <div class="card-body-content">
+            <p>
+                {{article["content"][:100] + "..."}}
+                <a href="#" class="btn">Read More</a>
+            </p>
+        </div>
+        <div class="card-body-operations">
+            <a href="">
+                <button class="edit-button icon-btn">
+                    <img
+                        src="{{url_for('static', path='images/icons/edit-icon.svg')}}"
+                        alt="edit-icon"
+                        class="icon" />Edit
+                </button>
+            </a>
+            <form action="/edit/{{article['id']}}" method="post">
+                <a href="">
+                    <button class="delete-button icon-btn">
+                        <img
+                            src="{{url_for('static', path='images/icons/trash.svg')}}"
+                            alt="trash-icon"
+                            class="icon" />Delete
+                    </button>
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}

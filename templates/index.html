@@ -1,4 +1,12 @@
 {% extends "base.html" %} {% block docTitle %}Index{% endblock %} {% block
 content %}
-<div>Index Page</div>
-{% endblock %}
+<div class="add-btn-container">
+    <button class="icon-btn">
+        <img
+            src="{{url_for('static', path='images/icons/plus.svg')}}"
+            alt="plus-icon"
+            class="icon" />Add
+    </button>
+</div>
+
+{% include "components/card.html" %} {% endblock %}
