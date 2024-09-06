@@ -5,10 +5,56 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
             rel="stylesheet"
-            href="{{ url_for('static', path='css/styles.css') }}" />
-        <title>Document</title>
+            href="{{ url_for('static', path='css/styles.css')}}" />
+        <title>{% block docTitle %}{% endblock %}</title>
+        <style>
+            header {
+                width: 100%;
+            }
+            nav {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem;
+                box-shadow: 0 0 0.3rem blue;
+            }
+            .header-heading {
+                letter-spacing: 0.3rem;
+                font-family: "Times New Roman", Times, serif;
+            }
+            .auth-btn {
+                list-style: none;
+                text-decoration: none;
+            }
+            .auth-btn > button {
+                padding: 0.7rem;
+                width: 5rem;
+                background-color: #ddd;
+                border-radius: 0.5rem;
+                font-weight: 800;
+                border: none;
+                cursor: pointer;
+                &:hover {
+                    background-color: #ccc;
+                }
+            }
+        </style>
     </head>
     <body>
-        {% block content %} {% endblock %}
+        <header>
+            <nav>
+                <img
+                    src="{{url_for('static', path='images/icons/logo.svg')}}"
+                    alt="" />
+                <div>
+                    <h1 class="header-heading">Personal Blogs</h1>
+                </div>
+                <a href="/profile" class="auth-btn">
+                    <button>Log In</button>
+                </a>
+            </nav>
+        </header>
+        <main>{% block content %} {% endblock %}</main>
     </body>
 </html>
