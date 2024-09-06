@@ -17,9 +17,20 @@
                 <div>
                     <h1 class="header-heading">Blogs</h1>
                 </div>
+                {% if not username %}
                 <a href="/profile" class="auth-btn">
                     <button>Log In</button>
                 </a>
+                {% elif username == "admin" %}
+                <a href="/admin" class="auth-btn username">
+                    <button>{{username}}</button>
+                </a>
+                {% else %}
+                <a href="/profile" class="auth-btn username">
+                    <button>{{username}}</button>
+                </a>
+
+                {% endif %}
             </nav>
         </header>
         <main>{% block content %} {% endblock %}</main>

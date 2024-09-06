@@ -3,19 +3,20 @@
     <div class="card-heading">
         <div class="card-subheading">
             <h2>{{ article["title"] }}</h2>
-            <small>{{ article["author"]}}</small>
         </div>
-        <small>{{ article["date"] }}</small>
     </div>
     <div class="card-body">
         <div class="card-body-content">
             <p>
-                {{article["content"][:100] + "..."}}
-                <a href="#" class="btn">Read More</a>
+                {% if article["content"] | length > 300 %}
+                {{article["content"][:200] + "..."}}
+                <a href="/article/{{article['id']}}" class="btn">Read More</a>
+                {% else%} {{article["content"]}} {% endif %}
             </p>
         </div>
+        {% if username %}
         <div class="card-body-operations">
-            <a href="">
+            <a href="#">
                 <button class="edit-button icon-btn">
                     <img
                         src="{{url_for('static', path='images/icons/edit-icon.svg')}}"
@@ -32,6 +33,9 @@
                 </button>
             </a>
         </div>
+        {% endif %}
     </div>
+    <small>{{ article["author"]}}</small>
+    <small>{{ article["date"] }}</small>
 </div>
 {% endfor %}

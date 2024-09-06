@@ -40,6 +40,12 @@ nav {
     list-style: none;
     text-decoration: none;
 }
+.username > button {
+    background-color: rgb(182, 217, 248);
+    &:hover {
+        background-color: rgb(127, 188, 241);
+    }
+}
 button {
     padding: 0.6rem;
     background-color: #ddd;
@@ -112,6 +118,49 @@ a:active {
     color: #f1f1f1;
     &:hover {
         background-color: rgb(230, 73, 62);
+    }
+}
+
+.form-section {
+    width: 50%;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+form {
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: space-between;
+}
+form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+form > div > input {
+    height: 2rem;
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    background-color: #f1f1f1;
+}
+form > div > textarea {
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    background-color: #f1f1f1;
+}
+.submit-button {
+    background-color: dodgerblue;
+    color: white;
+    &:hover {
+        background-color: rgb(5, 115, 224);
     }
 }
 

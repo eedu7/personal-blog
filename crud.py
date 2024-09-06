@@ -1,6 +1,7 @@
 import json
 import os
 from uuid import uuid4
+from datetime import datetime
 
 from dummy_data import dummy_data
 
@@ -9,15 +10,20 @@ def read_files():
     files = os.listdir("./data")
     return files
 
+def date_format():
+    date = datetime.today()
+    return date.strftime("%Y-%m-%d")
+
 
 def add_article(data):
     data["id"] = str(uuid4())
     try:
         with open(f"./data/{data['id']}.json", "w") as file:
             json.dump(data, file, indent=4)
-        return f"Article with id {data["id"]} created successfully"
+            return True
     except Exception as e:
         return f"Error creating article: {str(e)}"
+    return False
 
 
 def filter_article(filter_by, filter_value, articles):

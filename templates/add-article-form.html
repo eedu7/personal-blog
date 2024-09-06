@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block docTitle %}Add article{% endblock %} {% block
+content %}
+
+<section class="form-section">
+    <!-- <form action="/new/add" method="post"> -->
+    <form action="">
+        <h1>Update Article</h1>
+        <div>
+            <label for="title">Title</label>
+            <input
+                type="text"
+                name="title"
+                placeholder="This is article title." />
+        </div>
+        <div>
+            <label for="date">Date</label>
+            <input type="text" name="date" placeholder="September 6, 2024" />
+        </div>
+        <div>
+            <label for="Content">Content</label>
+            <textarea name="content" placeholder="Content" rows="30"></textarea>
+        </div>
+        <div>
+            <button type="submit" class="submit-button">Publish</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

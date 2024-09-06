@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block docTitle %}{{article["title"]}}{% endblock %}
+{% block content %}
+
+<section>
+    <h1>{{article["title"]}}</h1>
+    <p>{{article["content"]}}</p>
+    <p>Published: {{article["date"]}}</p>
+    <p>Author: {{article["author"]}}</p>
+    <a href="/edit/{{article['id']}}">Edit</a>
+    <a href="/delete/{{article['id']}}">Delete</a>
+</section>
+
+{% endblock %}
