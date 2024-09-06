@@ -20,8 +20,13 @@ def add_article(data):
 
 
 def filter_article(filter_by, filter_value, articles):
-    filtered_articles = [article for article in articles if (article[filter_by]).lower() == filter_value.lower()]
+    filtered_articles = [
+        article
+        for article in articles
+        if (article[filter_by]).lower() == filter_value.lower()
+    ]
     return filtered_articles
+
 
 def get_all(username=None):
     data = []
@@ -31,9 +36,8 @@ def get_all(username=None):
             data.append(json.load(file))
     if not username or username.lower() == "admin":
         return data
-    
-    return filter_article("author", username, data)
 
+    return filter_article("author", username, data)
 
 
 def get_by_id(article_id: str):
