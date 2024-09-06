@@ -1,7 +1,7 @@
 import json
 import os
-from uuid import uuid4
 from datetime import datetime
+from uuid import uuid4
 
 from dummy_data import dummy_data
 
@@ -9,6 +9,7 @@ from dummy_data import dummy_data
 def read_files():
     files = os.listdir("./data")
     return files
+
 
 def date_format():
     date = datetime.today()
