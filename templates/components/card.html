@@ -9,14 +9,18 @@
         <div class="card-body-content">
             <p>
                 {% if article["content"] | length > 300 %}
-                {{article["content"][:200] + "..."}}
+                {{article["content"][:200] + "..."}} {% if username %}
+                <a href="/article/{{article['id']}}/{{username}}" class="btn"
+                    >Read More</a
+                >
+                {% else %}
                 <a href="/article/{{article['id']}}" class="btn">Read More</a>
-                {% else%} {{article["content"]}} {% endif %}
+                {% endif %} {% else%} {{article["content"]}} {% endif %}
             </p>
         </div>
         {% if username %}
         <div class="card-body-operations">
-            <a href="#">
+            <a href="/edit/{{article['id']}}/{{username}}">
                 <button class="edit-button icon-btn">
                     <img
                         src="{{url_for('static', path='images/icons/edit-icon.svg')}}"

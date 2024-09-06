@@ -1,14 +1,12 @@
 from typing import Annotated
-from urllib import response
 
 from fastapi import Depends, FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import urllib
 
-from crud import delete_article, get_all, add_article, get_by_id
+from crud import delete_article, get_all, add_article, get_by_id, update_article
 
 app = FastAPI()
 
@@ -18,23 +16,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
-class CustomURLProcessor:
-    def __init__(self):  
-        self.path = "" 
-        self.request = None
 
-    def url_for(self, request: Request, name: str, **params: str):
-        self.path = request.url_for(name, **params)
-        self.request = request
-        return self
-    
-    def include_query_params(self, **params: str):
-        parsed = list(urllib.parse.urlparse(self.path))
-        parsed[4] = urllib.parse.urlencode(params)
-        return urllib.parse.urlunparse(parsed)
-
-
-# TODO: EDIT not implemented
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -107,11 +89,29 @@ def delete_article_endpoint(
     if credentials.username.lower() == "admin":
         return RedirectResponse(url="/admin")
     return RedirectResponse(url="/profile")
-
-@app.get("/article/{article_id}")
-async def get_one_article_endpoint(request: Request, article_id: str):
+@app.get("/article/{article_id}/{username}")
+async def get_one_article_endpoint_two(request: Request, article_id: str, username: str | None = None):
     article = get_by_id(article_id)
-    return templates.TemplateResponse("article.html", {"request": request, "article": article})
+    context = {"request": request, "article": article, "username": username}
+    return templates.TemplateResponse("article.html", context)
+@app.get("/article/{article_id}")
+async def get_one_article_endpoint_one(request: Request, article_id: str):
+    article = get_by_id(article_id)
+    context = {"request": request, "article": article}
+    return templates.TemplateResponse("article.html", context)
+
+@app.get("/edit/{article_id}/{username}")
+def edit_article_endpoint_with(request: Request, article_id: str, username: str , title: str | None= None, content: str | None=None, date: str | None=None):
+    article = get_by_id(article_id)
+    if title:
+        article["title"] = title
+    if content:
+        article["content"] = content
+    if date:
+        article["date"] = date
+    update_article(article_id, article)
+    return templates.TemplateResponse("edit-article-form.html", {"request": request, "article": article
+    , "username": username})
 
 
 # TODO: LOGOUT
