@@ -1,5 +1,6 @@
 import json
 import os
+from pprint import pprint
 from uuid import uuid4
 
 
@@ -18,13 +19,21 @@ def add_article(data):
         return f"Error creating article: {str(e)}"
 
 
-def get_all():
+def filter_article(filter_by, filter_value, articles):
+    filtered_articles = [article for article in articles if (article[filter_by]).lower() == filter_value.lower()]
+    return filtered_articles
+
+def get_all(username=None):
     data = []
     files = read_files()
     for file in files:
         with open(f"./data/{file}", "r") as file:
             data.append(json.load(file))
-    return data
+    if not username or username.lower() == "admin":
+        return data
+    
+    return filter_article("author", username, data)
+
 
 
 def get_by_id(article_id: str):
